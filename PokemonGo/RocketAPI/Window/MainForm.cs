@@ -68,9 +68,11 @@ namespace PokemonGo.RocketAPI.Window
                             match.Groups[3],
                             match.Groups[4]));
                 // makes sense to display your version and say what the current one is on github
-                ColoredConsoleWrite(Color.Green, "Your version is " + Assembly.GetExecutingAssembly().GetName().Version);
-                ColoredConsoleWrite(Color.Green, "Github version is " + gitVersion);
-                ColoredConsoleWrite(Color.Green, "You can find it at www.github.com/WooAf/PoGoBoT");
+                if (Assembly.GetExecutingAssembly().GetName().Version != gitVersion)
+                {
+                    ColoredConsoleWrite(Color.Red, "A new update is available !");
+                    ColoredConsoleWrite(Color.Red, "You can find it at www.github.com/WooAf/PoGoBoT");
+                }
             }
             catch (Exception)
             {
@@ -1024,6 +1026,7 @@ namespace PokemonGo.RocketAPI.Window
                  BUTTON
                 */
                 btnadvoptions.Enabled = false;
+                btnPokemon.Enabled = true;
                 SetupLocationMap();
 
 
@@ -1033,7 +1036,13 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     try
                     {
-                        dGrid.Rows.Clear();
+                        if (dGrid.InvokeRequired)
+                        {
+                            dGrid.BeginInvoke(new MethodInvoker(delegate {
+                                dGrid.Rows.Clear();
+                            }));
+                        }
+
                         CheckVersion();
                         Execute();
                     }
@@ -1055,6 +1064,7 @@ namespace PokemonGo.RocketAPI.Window
                     BUTTON
                     */
                     btnadvoptions.Enabled = true;
+                    btnPokemon.Enabled = false;
                     btnStartFarming.Text = "Start Farming";
 
                     Stopping = true;
@@ -1126,6 +1136,12 @@ namespace PokemonGo.RocketAPI.Window
         {
             SettingsForm settingsForm = new SettingsForm();
             settingsForm.Show();
+        }
+
+        private void btnPokemon_Click(object sender, EventArgs e)
+        {
+            var pForm = new PokeUi();
+            pForm.Show();
         }
     }
 }

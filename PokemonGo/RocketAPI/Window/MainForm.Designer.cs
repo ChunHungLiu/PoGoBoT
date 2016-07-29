@@ -41,6 +41,7 @@
             this.btnadvoptions = new System.Windows.Forms.Button();
             this.MainMap = new GMap.NET.WindowsForms.GMapControl();
             this.dGrid = new System.Windows.Forms.DataGridView();
+            this.btnPokemon = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGrid)).BeginInit();
@@ -161,7 +162,7 @@
             this.MainMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.MainMap.ShowTileGridLines = false;
-            this.MainMap.Size = new System.Drawing.Size(201, 310);
+            this.MainMap.Size = new System.Drawing.Size(201, 281);
             this.MainMap.TabIndex = 16;
             this.MainMap.Zoom = 0D;
             // 
@@ -178,11 +179,23 @@
             this.dGrid.Size = new System.Drawing.Size(464, 267);
             this.dGrid.TabIndex = 0;
             // 
+            // btnPokemon
+            // 
+            this.btnPokemon.Enabled = false;
+            this.btnPokemon.Location = new System.Drawing.Point(12, 440);
+            this.btnPokemon.Name = "btnPokemon";
+            this.btnPokemon.Size = new System.Drawing.Size(201, 23);
+            this.btnPokemon.TabIndex = 17;
+            this.btnPokemon.Text = "Pokemon";
+            this.btnPokemon.UseVisualStyleBackColor = true;
+            this.btnPokemon.Click += new System.EventHandler(this.btnPokemon_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 517);
+            this.Controls.Add(this.btnPokemon);
             this.Controls.Add(this.dGrid);
             this.Controls.Add(this.MainMap);
             this.Controls.Add(this.btnadvoptions);
@@ -216,5 +229,6 @@
         private System.Windows.Forms.Button btnForceUnban;
         private GMap.NET.WindowsForms.GMapControl MainMap;
         private System.Windows.Forms.DataGridView dGrid;
+        private System.Windows.Forms.Button btnPokemon;
     }
 }
