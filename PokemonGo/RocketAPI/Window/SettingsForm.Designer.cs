@@ -52,6 +52,7 @@
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.FindAdressButton = new System.Windows.Forms.Button();
+            this.comboLocations = new System.Windows.Forms.ComboBox();
             this.AdressBox = new System.Windows.Forms.TextBox();
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -63,10 +64,10 @@
             this.CatchPokemonText = new System.Windows.Forms.Label();
             this.EmailPasswordBox = new System.Windows.Forms.TextBox();
             this.EmailLoginBox = new System.Windows.Forms.TextBox();
+            this.transferIVThresText = new System.Windows.Forms.TextBox();
             this.TravelSpeedText = new System.Windows.Forms.Label();
             this.TravelSpeedBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.transferIVThresText = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
@@ -194,7 +195,6 @@
             // 
             this.latitudeText.Location = new System.Drawing.Point(109, 85);
             this.latitudeText.Name = "latitudeText";
-            this.latitudeText.ReadOnly = true;
             this.latitudeText.Size = new System.Drawing.Size(100, 20);
             this.latitudeText.TabIndex = 13;
             // 
@@ -202,7 +202,6 @@
             // 
             this.longitudeText.Location = new System.Drawing.Point(109, 111);
             this.longitudeText.Name = "longitudeText";
-            this.longitudeText.ReadOnly = true;
             this.longitudeText.Size = new System.Drawing.Size(100, 20);
             this.longitudeText.TabIndex = 14;
             // 
@@ -263,7 +262,7 @@
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(6, 402);
+            this.saveBtn.Location = new System.Drawing.Point(6, 413);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(200, 37);
             this.saveBtn.TabIndex = 20;
@@ -280,7 +279,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(6, 19);
+            this.gMapControl1.Location = new System.Drawing.Point(6, 45);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -293,7 +292,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(462, 391);
+            this.gMapControl1.Size = new System.Drawing.Size(462, 373);
             this.gMapControl1.TabIndex = 22;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
@@ -302,13 +301,14 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.FindAdressButton);
+            this.groupBox1.Controls.Add(this.comboLocations);
             this.groupBox1.Controls.Add(this.AdressBox);
             this.groupBox1.Controls.Add(this.trackBar);
             this.groupBox1.Controls.Add(this.gMapControl1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(221, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(474, 442);
+            this.groupBox1.Size = new System.Drawing.Size(469, 453);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Location";
@@ -317,26 +317,36 @@
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(404, 416);
+            this.FindAdressButton.Location = new System.Drawing.Point(338, 19);
             this.FindAdressButton.Name = "FindAdressButton";
-            this.FindAdressButton.Size = new System.Drawing.Size(64, 20);
-            this.FindAdressButton.TabIndex = 25;
+            this.FindAdressButton.Size = new System.Drawing.Size(130, 20);
+            this.FindAdressButton.TabIndex = 27;
             this.FindAdressButton.Text = "Find Location";
             this.FindAdressButton.UseVisualStyleBackColor = true;
-            this.FindAdressButton.Click += new System.EventHandler(this.FindAdressButton_Click_1);
+            this.FindAdressButton.Click += new System.EventHandler(this.FindAdressButton_Click);
+            // 
+            // comboLocations
+            // 
+            this.comboLocations.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLocations.FormattingEnabled = true;
+            this.comboLocations.Location = new System.Drawing.Point(6, 424);
+            this.comboLocations.Name = "comboLocations";
+            this.comboLocations.Size = new System.Drawing.Size(457, 21);
+            this.comboLocations.TabIndex = 26;
+            this.comboLocations.SelectedIndexChanged += new System.EventHandler(this.comboLocations_SelectedIndexChanged);
             // 
             // AdressBox
             // 
-            this.AdressBox.Location = new System.Drawing.Point(6, 416);
+            this.AdressBox.Location = new System.Drawing.Point(6, 19);
             this.AdressBox.Name = "AdressBox";
-            this.AdressBox.Size = new System.Drawing.Size(392, 20);
-            this.AdressBox.TabIndex = 25;
+            this.AdressBox.Size = new System.Drawing.Size(326, 20);
+            this.AdressBox.TabIndex = 28;
             // 
             // trackBar
             // 
             this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar.BackColor = System.Drawing.SystemColors.Info;
-            this.trackBar.Location = new System.Drawing.Point(426, 16);
+            this.trackBar.Location = new System.Drawing.Point(423, 45);
             this.trackBar.Name = "trackBar";
             this.trackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBar.Size = new System.Drawing.Size(45, 104);
@@ -382,7 +392,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(9, 9);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 442);
+            this.panel1.Size = new System.Drawing.Size(212, 453);
             this.panel1.TabIndex = 26;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -454,6 +464,14 @@
             this.EmailLoginBox.Size = new System.Drawing.Size(136, 20);
             this.EmailLoginBox.TabIndex = 29;
             // 
+            // transferIVThresText
+            // 
+            this.transferIVThresText.Location = new System.Drawing.Point(109, 220);
+            this.transferIVThresText.Name = "transferIVThresText";
+            this.transferIVThresText.Size = new System.Drawing.Size(100, 20);
+            this.transferIVThresText.TabIndex = 24;
+            this.transferIVThresText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
             // TravelSpeedText
             // 
             this.TravelSpeedText.AutoSize = true;
@@ -481,27 +499,21 @@
             this.label6.Text = "IV Threshold:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
-            // transferIVThresText
-            // 
-            this.transferIVThresText.Location = new System.Drawing.Point(109, 220);
-            this.transferIVThresText.Name = "transferIVThresText";
-            this.transferIVThresText.Size = new System.Drawing.Size(100, 20);
-            this.transferIVThresText.TabIndex = 24;
-            this.transferIVThresText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 460);
+            this.ClientSize = new System.Drawing.Size(699, 471);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = new System.Drawing.Point(715, 510);
+            this.MaximumSize = new System.Drawing.Size(715, 510);
             this.MinimumSize = new System.Drawing.Size(630, 360);
             this.Name = "SettingsForm";
             this.Padding = new System.Windows.Forms.Padding(9);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -544,8 +556,6 @@
         private System.Windows.Forms.TextBox TravelSpeedBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label TravelSpeedText;
-        private System.Windows.Forms.TextBox AdressBox;
-        private System.Windows.Forms.Button FindAdressButton;
         private System.Windows.Forms.CheckBox CatchPokemonBox;
         private System.Windows.Forms.Label CatchPokemonText;
         private System.Windows.Forms.Label EmailLoginText;
@@ -555,5 +565,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox ImageSizeBox;
         private System.Windows.Forms.TextBox transferIVThresText;
+        private System.Windows.Forms.ComboBox comboLocations;
+        private System.Windows.Forms.Button FindAdressButton;
+        private System.Windows.Forms.TextBox AdressBox;
     }
 }

@@ -19,6 +19,7 @@ using PokemonGo.RocketAPI.Exceptions;
 using PokemonGo.RocketAPI.Extensions;
 using PokemonGo.RocketAPI.GeneratedCode;
 using GMap.NET.MapProviders;
+using System.Configuration;
 
 namespace PokemonGo.RocketAPI.Window
 {
@@ -318,7 +319,21 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     ConsoleClear();
                     ColoredConsoleWrite(Color.Red, $"Bot successfully stopped.");
-                    btnStartFarming.Text = "Start Farming";
+
+                    if (btnStartFarming.InvokeRequired)
+                    {
+                        btnStartFarming.BeginInvoke(new MethodInvoker(delegate
+                        {
+                            btnStartFarming.Text = "Start Farming";
+                            btnStartFarming.Enabled = true;
+                        }));
+                    }
+                    else
+                    {
+                        btnStartFarming.Text = "Start Farming";
+                        btnStartFarming.Enabled = true;
+                    }
+
                     Stopping = false;
                     bot_started = false;
                 }
@@ -1020,6 +1035,25 @@ namespace PokemonGo.RocketAPI.Window
         private static bool bot_started = false;
         private void btnStartFarming_Click(object sender, EventArgs e)
         {
+            if (ConfigurationManager.AppSettings["AuthType"].ToLower() == "google")
+            {
+                if (ConfigurationManager.AppSettings["Email"].ToLower() == "email")
+                {
+                    MessageBox.Show("Invalid login configuration");
+                    return;
+                }
+            }
+
+            if (ConfigurationManager.AppSettings["AuthType"].ToLower() == "ptc")
+            {
+                if (ConfigurationManager.AppSettings["PtcUsername"].ToLower() == "username")
+                {
+                    MessageBox.Show("Invalid login configuration");
+                    return;
+                }
+            }
+
+
             if (!bot_started)
             {
                 /*
@@ -1038,7 +1072,8 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         if (dGrid.InvokeRequired)
                         {
-                            dGrid.BeginInvoke(new MethodInvoker(delegate {
+                            dGrid.BeginInvoke(new MethodInvoker(delegate
+                            {
                                 dGrid.Rows.Clear();
                             }));
                         }
@@ -1065,7 +1100,7 @@ namespace PokemonGo.RocketAPI.Window
                     */
                     btnadvoptions.Enabled = true;
                     btnPokemon.Enabled = false;
-                    btnStartFarming.Text = "Start Farming";
+                    btnStartFarming.Enabled = false;
 
                     Stopping = true;
                     ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
@@ -1075,6 +1110,8 @@ namespace PokemonGo.RocketAPI.Window
                     ColoredConsoleWrite(Color.Red, $"An action is in play, please wait until it's done.");
                 }
             }
+
+
         }
 
         private async void btnLuckyEgg_Click(object sender, EventArgs e)

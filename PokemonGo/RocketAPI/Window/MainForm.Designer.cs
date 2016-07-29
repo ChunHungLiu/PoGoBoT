@@ -204,7 +204,10 @@
             this.Controls.Add(this.statusStrip1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(717, 556);
+            this.MinimumSize = new System.Drawing.Size(717, 556);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PoGoBoT - GUI";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
