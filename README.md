@@ -25,16 +25,22 @@ The contents of this repo are a proof of concept and are for educational use onl
 - Check what could be improved, fork this repo and help everyone by improving this.
 
 # Features
- - [GUI]
- - [PTC Login / Google]
- - [Use Lucky Egg]
- - [Farm pokestops]
- - [Farm all Pokemon in neighbourhood]
- - [Throw Berries/use best pokeball]
- - [Transfers duplicate pokemons]
- - [Evolve all pokemons]
- - [Throws away unneeded items]
- - [Humanlike Walking]
+- PTC / Google Login
+- Get Map Objects and Inventory
+- Search for Gyms / Pokéstops / Spawns
+- Farm Pokéstops
+- Farm all Pokémon in the neighbourhood
+- Evolve Pokémon
+- Transfer Pokémon
+- Auto-Recycle uneeded items
+- View all Pokémon CP/IV %
+- Transfer/Powerup/Evolve Pokémon
+- Output level and needed XP for levelup
+- Output Username, Level, Stardust, XP/hour, Pokémon/hour in Console Title
+- German/English Pokémon names
+- Automatic use of Razzberries
+- Automatic Update checker
+- Logs everything into Logs.txt
 
 # FAQ
 - You need .NET Framework 4.5 to run this (https://www.microsoft.com/en-ca/download/details.aspx?id=30653)
