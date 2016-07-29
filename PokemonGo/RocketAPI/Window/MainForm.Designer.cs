@@ -40,8 +40,10 @@
             this.btnStartFarming = new System.Windows.Forms.Button();
             this.btnadvoptions = new System.Windows.Forms.Button();
             this.MainMap = new GMap.NET.WindowsForms.GMapControl();
+            this.dGrid = new System.Windows.Forms.DataGridView();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // logTextBox
@@ -50,10 +52,10 @@
             this.logTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logTextBox.ForeColor = System.Drawing.Color.White;
             this.logTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.logTextBox.Location = new System.Drawing.Point(225, 170);
+            this.logTextBox.Location = new System.Drawing.Point(225, 285);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
-            this.logTextBox.Size = new System.Drawing.Size(468, 322);
+            this.logTextBox.Size = new System.Drawing.Size(468, 207);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
@@ -146,7 +148,7 @@
             this.MainMap.GrayScaleMode = false;
             this.MainMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.MainMap.LevelsKeepInMemmory = 5;
-            this.MainMap.Location = new System.Drawing.Point(225, 12);
+            this.MainMap.Location = new System.Drawing.Point(12, 153);
             this.MainMap.MarkersEnabled = true;
             this.MainMap.MaxZoom = 2;
             this.MainMap.MinZoom = 2;
@@ -159,15 +161,29 @@
             this.MainMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.MainMap.ShowTileGridLines = false;
-            this.MainMap.Size = new System.Drawing.Size(468, 152);
+            this.MainMap.Size = new System.Drawing.Size(201, 310);
             this.MainMap.TabIndex = 16;
             this.MainMap.Zoom = 0D;
+            // 
+            // dGrid
+            // 
+            this.dGrid.AllowUserToAddRows = false;
+            this.dGrid.AllowUserToDeleteRows = false;
+            this.dGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGrid.Location = new System.Drawing.Point(225, 12);
+            this.dGrid.Name = "dGrid";
+            this.dGrid.ReadOnly = true;
+            this.dGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dGrid.Size = new System.Drawing.Size(464, 267);
+            this.dGrid.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 517);
+            this.Controls.Add(this.dGrid);
             this.Controls.Add(this.MainMap);
             this.Controls.Add(this.btnadvoptions);
             this.Controls.Add(this.groupBox1);
@@ -180,6 +196,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,5 +215,6 @@
         private System.Windows.Forms.Button btnadvoptions;
         private System.Windows.Forms.Button btnForceUnban;
         private GMap.NET.WindowsForms.GMapControl MainMap;
+        private System.Windows.Forms.DataGridView dGrid;
     }
 }

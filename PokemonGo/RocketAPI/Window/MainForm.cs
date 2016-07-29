@@ -202,6 +202,19 @@ namespace PokemonGo.RocketAPI.Window
 
         private async void Execute()
         {
+            if(dGrid.InvokeRequired)
+            {
+                dGrid.BeginInvoke(new MethodInvoker(delegate {
+                    dGrid.ColumnCount = 4;
+                    dGrid.Columns[0].Name = "Action";
+                    dGrid.Columns[1].Name = "Pokemon";
+                    dGrid.Columns[2].Name = "CP";
+                    dGrid.Columns[3].Name = "IV";
+                }));
+            }
+            
+
+
             client = new Client(ClientSettings);
             this.locationManager = new LocationManager(client, ClientSettings.TravelSpeed);
             try
@@ -395,15 +408,32 @@ namespace PokemonGo.RocketAPI.Window
 
                 if (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
-                    ColoredConsoleWrite(Color.Green, $"We caught a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
+                    if (dGrid.InvokeRequired)
+                    {
+                        dGrid.BeginInvoke(new MethodInvoker(delegate
+                        {
+                            dGrid.Rows.Insert(0, "Captured", pokemon.PokemonId.ToString(), pokemonCP, pokemonIV);
+                        }));
+                    }
 
+                    ColoredConsoleWrite(Color.Green, $"We caught a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
 
                     foreach (int xp in caughtPokemonResponse.Scores.Xp)
                         TotalExperience += xp;
                     TotalPokemon += 1;
                 }
                 else
+                {
+                    if (dGrid.InvokeRequired)
+                    {
+                        dGrid.BeginInvoke(new MethodInvoker(delegate
+                        {
+                            dGrid.Rows.Insert(0, "Flew Away", pokemon.PokemonId.ToString(), pokemonCP, pokemonIV);
+                        }));
+                    }
+
                     ColoredConsoleWrite(Color.Red, $"{pokemonName} with {pokemonCP} CP and {pokemonIV}% IV got away..");
+                }
 
 
                 // I believe a switch is more efficient and easier to read.
@@ -1003,6 +1033,7 @@ namespace PokemonGo.RocketAPI.Window
                 {
                     try
                     {
+                        dGrid.Rows.Clear();
                         CheckVersion();
                         Execute();
                     }
@@ -1024,6 +1055,7 @@ namespace PokemonGo.RocketAPI.Window
                     BUTTON
                     */
                     btnadvoptions.Enabled = true;
+                    btnStartFarming.Text = "Start Farming";
 
                     Stopping = true;
                     ColoredConsoleWrite(Color.Red, $"Stopping the bot.. Waiting for the last action to be complete.");
