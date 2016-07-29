@@ -16,6 +16,9 @@ The contents of this repo are a proof of concept and are for educational use onl
 - Open the PokemonGo.RocketAPI.Window.exe file.
 - That's it! Just enter your credentials, select your starting location from the map and start farming.
 
+## Password
+ *password* - for Google account. No need for when using PTC. If you are using Google 2 factor authentication, generate an app password (https://security.google.com/settings/security/apppasswords) and use this instead of your normal Google password.
+
 ## The Advanced
 - Download Visual Studio 2015.
 - Clone this Repository.
