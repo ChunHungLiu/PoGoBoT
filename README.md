@@ -1,6 +1,6 @@
 # A Pokemon Go Bot based on FeroxRevs API
 ![Application Demo](http://i.imgur.com/tuMefQz.png)
-![Application Demo](http://i.imgur.com/Ot36KNI.png)
+![Application Demo](http://i.imgur.com/8Gz1K2v.png)
 ![Application Demo](http://i.imgur.com/ncAvSzq.png)
 
 # Disclaimer
