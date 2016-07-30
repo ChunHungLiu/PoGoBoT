@@ -591,28 +591,34 @@ namespace PokemonGo.RocketAPI.Window
 
                 foreach (var pokeStop in pokeStops)
                 {
-
-                    double pokeStopDistance = locationManager.getDistance(pokeStop.Latitude, pokeStop.Longitude);
-                    await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
-                    var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-
-                    if (fortInfo.Name != string.Empty)
+                    try
                     {
-                        ColoredConsoleWrite(Color.LightGreen, "Chosen PokeStop " + fortInfo.Name + " for force unban");
-                        for (int i = 1; i <= 50; i++)
+                        double pokeStopDistance = locationManager.getDistance(pokeStop.Latitude, pokeStop.Longitude);
+                        await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
+                        var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+
+                        if (fortInfo.Name != string.Empty)
                         {
-                            var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-                            if (fortSearch.ExperienceAwarded == 0)
+                            ColoredConsoleWrite(Color.LightGreen, "Chosen PokeStop " + fortInfo.Name + " for force unban");
+                            for (int i = 1; i <= 50; i++)
                             {
-                                ColoredConsoleWrite(Color.LightGreen, "Attempt: " + i);
-                            }
-                            else
-                            {
-                                ColoredConsoleWrite(Color.LightGreen, "You are now unbanned! Total attempts: " + i);
-                                done = true;
-                                break;
+                                var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+                                if (fortSearch.ExperienceAwarded == 0)
+                                {
+                                    ColoredConsoleWrite(Color.LightGreen, "Attempt: " + i);
+                                }
+                                else
+                                {
+                                    ColoredConsoleWrite(Color.LightGreen, "You are now unbanned! Total attempts: " + i);
+                                    done = true;
+                                    break;
+                                }
                             }
                         }
+                    }
+                    catch
+                    {
+                        ColoredConsoleWrite(Color.Red, "Attempt failed, retrying.");
                     }
 
                     if (!done)
@@ -1052,25 +1058,6 @@ namespace PokemonGo.RocketAPI.Window
         private static bool bot_started = false;
         private void btnStartFarming_Click(object sender, EventArgs e)
         {
-            if (ConfigurationManager.AppSettings["AuthType"].ToLower() == "google")
-            {
-                if (ConfigurationManager.AppSettings["Email"].ToLower() == "email")
-                {
-                    MessageBox.Show("Invalid login configuration");
-                    return;
-                }
-            }
-
-            if (ConfigurationManager.AppSettings["AuthType"].ToLower() == "ptc")
-            {
-                if (ConfigurationManager.AppSettings["PtcUsername"].ToLower() == "username")
-                {
-                    MessageBox.Show("Invalid login configuration");
-                    return;
-                }
-            }
-
-
             if (!bot_started)
             {
                 /*
