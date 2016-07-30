@@ -91,6 +91,12 @@ namespace PokemonGo.RocketAPI.Window
             MainMap.Zoom = 15;
         }
 
+        private void UpdateMap(double lat, double lng)
+        {
+            MainMap.Position = new GMap.NET.PointLatLng(lat, lng);
+            MessageBox.Show(Convert.ToString(lat));
+        }
+
         private static string DownloadServerVersion()
         {
             using (var wC = new WebClient())
@@ -244,7 +250,7 @@ namespace PokemonGo.RocketAPI.Window
                     inventory.InventoryDelta.InventoryItems.Select(i => i.InventoryItemData?.Pokemon)
                         .Where(p => p != null && p?.PokemonId > 0);
 
-                ConsoleLevelTitle(profile.Profile.Username, client);
+                await ConsoleLevelTitle(profile.Profile.Username, client);
 
                 // Write the players ingame details
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
@@ -506,6 +512,8 @@ namespace PokemonGo.RocketAPI.Window
                 await locationManager.update(pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await client.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
                 var fortSearch = await client.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+
+                UpdateMap(pokeStop.Latitude, pokeStop.Longitude);
 
                 StringWriter PokeStopOutput = new StringWriter();
                 PokeStopOutput.Write($"");

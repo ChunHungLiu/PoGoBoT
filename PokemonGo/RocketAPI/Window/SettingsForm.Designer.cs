@@ -188,6 +188,7 @@
             // 
             this.ptcPassText.Location = new System.Drawing.Point(72, 62);
             this.ptcPassText.Name = "ptcPassText";
+            this.ptcPassText.PasswordChar = '•';
             this.ptcPassText.Size = new System.Drawing.Size(136, 20);
             this.ptcPassText.TabIndex = 12;
             // 
@@ -454,6 +455,7 @@
             // 
             this.EmailPasswordBox.Location = new System.Drawing.Point(73, 60);
             this.EmailPasswordBox.Name = "EmailPasswordBox";
+            this.EmailPasswordBox.PasswordChar = '•';
             this.EmailPasswordBox.Size = new System.Drawing.Size(136, 20);
             this.EmailPasswordBox.TabIndex = 30;
             // 
