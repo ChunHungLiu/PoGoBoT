@@ -93,6 +93,14 @@ namespace PokemonGo.RocketAPI.Window
                     MainMap.MaxZoom = 24;
                     MainMap.Zoom = 15;
                 }));
+            } else
+            {
+                MainMap.DragButton = MouseButtons.Left;
+                MainMap.MapProvider = GMapProviders.BingMap;
+                MainMap.Position = new GMap.NET.PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
+                MainMap.MinZoom = 0;
+                MainMap.MaxZoom = 24;
+                MainMap.Zoom = 15;
             }
         }
 
@@ -103,6 +111,9 @@ namespace PokemonGo.RocketAPI.Window
                 MainMap.BeginInvoke(new MethodInvoker(delegate {
                     MainMap.Position = new GMap.NET.PointLatLng(lat, lng);
                 }));
+            } else
+            {
+                MainMap.Position = new GMap.NET.PointLatLng(lat, lng);
             }
         }
 
@@ -229,6 +240,13 @@ namespace PokemonGo.RocketAPI.Window
                     dGrid.Columns[2].Name = "CP";
                     dGrid.Columns[3].Name = "IV";
                 }));
+            } else
+            {
+                dGrid.ColumnCount = 4;
+                dGrid.Columns[0].Name = "Action";
+                dGrid.Columns[1].Name = "Pokemon";
+                dGrid.Columns[2].Name = "CP";
+                dGrid.Columns[3].Name = "IV";
             }
             
 
@@ -446,6 +464,9 @@ namespace PokemonGo.RocketAPI.Window
                         {
                             dGrid.Rows.Insert(0, "Captured", pokemon.PokemonId.ToString(), pokemonCP, pokemonIV);
                         }));
+                    } else
+                    {
+                        dGrid.Rows.Insert(0, "Captured", pokemon.PokemonId.ToString(), pokemonCP, pokemonIV);
                     }
 
                     ColoredConsoleWrite(Color.Green, $"We caught a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
@@ -462,6 +483,9 @@ namespace PokemonGo.RocketAPI.Window
                         {
                             dGrid.Rows.Insert(0, "Flew Away", pokemon.PokemonId.ToString(), pokemonCP, pokemonIV);
                         }));
+                    } else
+                    {
+                        dGrid.Rows.Insert(0, "Flew Away", pokemon.PokemonId.ToString(), pokemonCP, pokemonIV);
                     }
 
                     ColoredConsoleWrite(Color.Red, $"{pokemonName} with {pokemonCP} CP and {pokemonIV}% IV got away..");
@@ -1080,6 +1104,9 @@ namespace PokemonGo.RocketAPI.Window
                             {
                                 dGrid.Rows.Clear();
                             }));
+                        } else
+                        {
+                            dGrid.Rows.Clear();
                         }
 
                         CheckVersion();
