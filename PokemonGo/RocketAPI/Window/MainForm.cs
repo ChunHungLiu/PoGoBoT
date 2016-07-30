@@ -83,18 +83,27 @@ namespace PokemonGo.RocketAPI.Window
 
         private void SetupLocationMap()
         {
-            MainMap.DragButton = MouseButtons.Left;
-            MainMap.MapProvider = GMapProviders.BingMap;
-            MainMap.Position = new GMap.NET.PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
-            MainMap.MinZoom = 0;
-            MainMap.MaxZoom = 24;
-            MainMap.Zoom = 15;
+            if (MainMap.InvokeRequired)
+            {
+                MainMap.BeginInvoke(new MethodInvoker(delegate {
+                    MainMap.DragButton = MouseButtons.Left;
+                    MainMap.MapProvider = GMapProviders.BingMap;
+                    MainMap.Position = new GMap.NET.PointLatLng(ClientSettings.DefaultLatitude, ClientSettings.DefaultLongitude);
+                    MainMap.MinZoom = 0;
+                    MainMap.MaxZoom = 24;
+                    MainMap.Zoom = 15;
+                }));
+            }
         }
 
         private void UpdateMap(double lat, double lng)
         {
-            MainMap.Position = new GMap.NET.PointLatLng(lat, lng);
-            MessageBox.Show(Convert.ToString(lat));
+            if (MainMap.InvokeRequired)
+            {
+                MainMap.BeginInvoke(new MethodInvoker(delegate {
+                    MainMap.Position = new GMap.NET.PointLatLng(lat, lng);
+                }));
+            }
         }
 
         private static string DownloadServerVersion()

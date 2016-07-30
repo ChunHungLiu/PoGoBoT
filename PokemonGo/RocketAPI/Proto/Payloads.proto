@@ -355,12 +355,12 @@ message GlobalSettings {
 }
 
 message FortSettings {
-  double interaction_range_meters = 1;
-  int32 max_total_deployed_pokemon = 2;
-  int32 max_player_deployed_pokemon = 3;
-  double deploy_stamina_multiplier = 4;
+  double interaction_range_meters = 40;
+  int32 max_total_deployed_pokemon = 10;
+  int32 max_player_deployed_pokemon = 1;
+  double deploy_stamina_multiplier = 2.0;
   double deploy_attack_multiplier = 5;
-  double far_interaction_range_meters = 6;
+  double far_interaction_range_meters = 1000;
 }
 
 message MapSettings {
