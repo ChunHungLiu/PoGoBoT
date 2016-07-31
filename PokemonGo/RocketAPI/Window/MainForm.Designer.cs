@@ -45,6 +45,7 @@
             this.btnadvoptions = new System.Windows.Forms.Button();
             this.dGrid = new System.Windows.Forms.DataGridView();
             this.btnPokemon = new System.Windows.Forms.Button();
+            this.btnuseincense = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGrid)).BeginInit();
@@ -101,7 +102,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(12, 153);
+            this.gMapControl1.Location = new System.Drawing.Point(12, 185);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -114,7 +115,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(201, 237);
+            this.gMapControl1.Size = new System.Drawing.Size(201, 205);
             this.gMapControl1.TabIndex = 23;
             this.gMapControl1.Zoom = 0D;
             // 
@@ -132,19 +133,20 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnuseincense);
             this.groupBox1.Controls.Add(this.btnForceUnban);
             this.groupBox1.Controls.Add(this.btnLuckyEgg);
             this.groupBox1.Controls.Add(this.btnStartFarming);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(201, 135);
+            this.groupBox1.Size = new System.Drawing.Size(201, 167);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Farming Control";
             // 
             // btnForceUnban
             // 
-            this.btnForceUnban.Location = new System.Drawing.Point(6, 103);
+            this.btnForceUnban.Location = new System.Drawing.Point(6, 135);
             this.btnForceUnban.Name = "btnForceUnban";
             this.btnForceUnban.Size = new System.Drawing.Size(189, 23);
             this.btnForceUnban.TabIndex = 16;
@@ -206,6 +208,16 @@
             this.btnPokemon.UseVisualStyleBackColor = true;
             this.btnPokemon.Click += new System.EventHandler(this.btnPokemon_Click);
             // 
+            // btnuseincense
+            // 
+            this.btnuseincense.Location = new System.Drawing.Point(6, 106);
+            this.btnuseincense.Name = "btnuseincense";
+            this.btnuseincense.Size = new System.Drawing.Size(189, 23);
+            this.btnuseincense.TabIndex = 17;
+            this.btnuseincense.Text = "Use Incense";
+            this.btnuseincense.UseVisualStyleBackColor = true;
+            this.btnuseincense.Click += new System.EventHandler(this.btnuseincense_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,5 +264,6 @@
         private System.Windows.Forms.Button btnadvoptions;
         private System.Windows.Forms.DataGridView dGrid;
         private System.Windows.Forms.Button btnPokemon;
+        private System.Windows.Forms.Button btnuseincense;
     }
 }

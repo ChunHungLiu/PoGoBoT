@@ -1,4 +1,6 @@
-﻿using System;
+﻿//71c7b12
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,6 +52,7 @@ namespace PokemonGo.RocketAPI.Window
             synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
             ClientSettings = Settings.Instance;
+            Instance = this;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -148,19 +151,19 @@ namespace PokemonGo.RocketAPI.Window
                         "https://raw.githubusercontent.com/WooAf/PoGoBoT/master/PokemonGo/RocketAPI/Window/Properties/AssemblyInfo.cs");
         }
 
-        public void ColoredConsoleWrite(Color color, string text)
+        public static void ColoredConsoleWrite(Color color, string text)
         {
-            if (InvokeRequired)
+            if (MainForm.Instance.InvokeRequired)
             {
-                Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
+                MainForm.Instance.Invoke(new Action<Color, string>(ColoredConsoleWrite), color, text);
                 return;
             }
 
-            logTextBox.Select(logTextBox.Text.Length, 1); // Reset cursor to last
+            MainForm.Instance.logTextBox.Select(MainForm.Instance.logTextBox.Text.Length, 1); // Reset cursor to last
 
             string textToAppend = "[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text + "\r\n";
-            logTextBox.SelectionColor = color;
-            logTextBox.AppendText(textToAppend);
+            MainForm.Instance.logTextBox.SelectionColor = color;
+            MainForm.Instance.logTextBox.AppendText(textToAppend);
 
             object syncRoot = new object();
             lock (syncRoot) // Added locking to prevent text file trying to be accessed by two things at the same time
@@ -290,6 +293,7 @@ namespace PokemonGo.RocketAPI.Window
                         break;
                 }
 
+                
                 await client.Login();
                 await client.SetServer();
                 var profile = await client.GetProfile();
@@ -412,7 +416,7 @@ namespace PokemonGo.RocketAPI.Window
             catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) Execute(); }
             catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) Execute(); }
             catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
+            catch (NullReferenceException ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
             finally { client = null; }
 
@@ -596,7 +600,8 @@ namespace PokemonGo.RocketAPI.Window
             {
                 pokestopsOverlay.Markers.Clear();
                 List<PointLatLng> routePoint = new List<PointLatLng>();
-                foreach (var pokeStop in pokeStops)
+
+                /*foreach (var pokeStop in pokeStops)
                 {
                     GMarkerGoogleType type = GMarkerGoogleType.blue_small;
                     if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
@@ -611,6 +616,7 @@ namespace PokemonGo.RocketAPI.Window
 
                     routePoint.Add(pokeStopLoc);
                 }
+                */
                 pokestopsOverlay.Routes.Clear();
                 pokestopsOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
 
@@ -685,6 +691,8 @@ namespace PokemonGo.RocketAPI.Window
                 client.RecycleItems(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
             }
+
+            updateUserStatusBar(client);
         }
 
         private async Task ForceUnban(Client client)
@@ -1340,6 +1348,42 @@ namespace PokemonGo.RocketAPI.Window
         {
             var pForm = new PokeUi();
             pForm.Show();
+        }
+
+        private async void btnuseincense_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+                try
+                {
+                    IEnumerable<Item> myItems = await client.GetItems(client);
+                    IEnumerable<Item> Incenses = myItems.Where(i => (ItemId)i.Item_ == ItemId.ItemIncenseOrdinary);
+                    Item Incense = Incenses.FirstOrDefault();
+                    if (Incense != null)
+                    {
+                        var useIncenseRequest = await client.UseIncense(ItemId.ItemIncenseOrdinary);
+                        ColoredConsoleWrite(Color.Green, $"Using an Incense, we have {Incense.Count} left.");
+                        ColoredConsoleWrite(Color.Yellow, $"Incense valid until: {DateTime.Now.AddMinutes(30).ToString()}");
+
+                        var stripItem = sender as ToolStripMenuItem;
+                        stripItem.Enabled = false;
+                        await Task.Delay(30000);
+                        stripItem.Enabled = true;
+                    }
+                    else
+                    {
+                        ColoredConsoleWrite(Color.Red, $"You don't have any Incense to use.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ColoredConsoleWrite(Color.Red, $"Unhandled exception in using Incense: {ex}");
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a Incense.");
+            }
         }
     }
 }
