@@ -486,7 +486,7 @@ enum PokemonId {
   VICTREEBELL = 71;
   TENTACOOL = 72;
   TENTACRUEL = 73;
-  GEODUDE = 74;
+  GEODUGE = 74;
   GRAVELER = 75;
   GOLEM = 76;
   PONYTA = 77;
