@@ -104,7 +104,6 @@ namespace PokemonGo.RocketAPI.Window
         public static DateTime InitSessionDateTime = DateTime.Now;
 
         Client client;
-        Client client2;
         LocationManager locationManager;
 
         public static double GetRuntime()
@@ -448,7 +447,6 @@ namespace PokemonGo.RocketAPI.Window
                                 break;
                             default:
                                 return "N/A";
-                                break;
                         }
                     }
                 }
@@ -641,6 +639,11 @@ namespace PokemonGo.RocketAPI.Window
             var mapObjects = await client.GetMapObjects();
 
             FortData[] rawPokeStops = mapObjects.MapCells.SelectMany(i => i.Forts).Where(i => i.Type == FortType.Checkpoint && i.CooldownCompleteTimestampMs < DateTime.UtcNow.ToUnixTime()).ToArray();
+            if (rawPokeStops == null || rawPokeStops.Count() <= 0)
+            {
+                ColoredConsoleWrite(Color.Red, $"No PokeStops to visit here, please stop the bot and change your location.");
+                return;
+            }
             pokeStops = rawPokeStops;
             UpdateMap();
             ColoredConsoleWrite(Color.Cyan, $"Finding fastest route through all PokeStops..");
