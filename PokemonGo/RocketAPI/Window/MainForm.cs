@@ -1,6 +1,4 @@
-﻿//71c7b12
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -52,6 +50,7 @@ namespace PokemonGo.RocketAPI.Window
             synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
             ClientSettings = Settings.Instance;
+            Client.OnConsoleWrite += Client_OnConsoleWrite;
             Instance = this;
         }
 
@@ -104,6 +103,7 @@ namespace PokemonGo.RocketAPI.Window
         public static DateTime InitSessionDateTime = DateTime.Now;
 
         Client client;
+        Client client2;
         LocationManager locationManager;
 
         public static double GetRuntime()
@@ -277,7 +277,6 @@ namespace PokemonGo.RocketAPI.Window
                 dGrid.Columns[2].Name = "CP";
                 dGrid.Columns[3].Name = "IV";
             }
-
             client = new Client(ClientSettings);
             this.locationManager = new LocationManager(client, ClientSettings.TravelSpeed);
             try
@@ -292,7 +291,6 @@ namespace PokemonGo.RocketAPI.Window
                         break;
                 }
 
-                
                 await client.Login();
                 await client.SetServer();
                 var profile = await client.GetProfile();
@@ -327,15 +325,6 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.DarkGray, "Stardust: " + profile.Profile.Currency.ToArray()[1].Amount + "\n");
                 ColoredConsoleWrite(Color.DarkGray, "Latitude: " + ClientSettings.DefaultLatitude);
                 ColoredConsoleWrite(Color.DarkGray, "Longitude: " + ClientSettings.DefaultLongitude);
-                try
-                {
-                    ColoredConsoleWrite(Color.DarkGray, "Country: " + CallAPI("country", lat2.Replace(',', '.'), longit2.Replace(',', '.')));
-                    ColoredConsoleWrite(Color.DarkGray, "Area: " + CallAPI("place", lat2.Replace(',', '.'), longit2.Replace(',', '.')));
-                }
-                catch (Exception)
-                {
-                    ColoredConsoleWrite(Color.DarkGray, "Unable to get Country/Place");
-                }
 
 
                 ColoredConsoleWrite(Color.Yellow, "----------------------------");
@@ -415,10 +404,8 @@ namespace PokemonGo.RocketAPI.Window
             catch (UriFormatException) { ColoredConsoleWrite(Color.Red, "System URI Format Exception - Restarting"); if (!Stopping) Execute(); }
             catch (ArgumentOutOfRangeException) { ColoredConsoleWrite(Color.Red, "ArgumentOutOfRangeException - Restarting"); if (!Stopping) Execute(); }
             catch (ArgumentNullException) { ColoredConsoleWrite(Color.Red, "Argument Null Refference - Restarting"); if (!Stopping) Execute(); }
-            catch (NullReferenceException ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
+            catch (NullReferenceException) { ColoredConsoleWrite(Color.Red, "Null Refference - Restarting"); if (!Stopping) Execute(); }
             catch (Exception ex) { ColoredConsoleWrite(Color.Red, ex.ToString()); if (!Stopping) Execute(); }
-            finally { client = null; }
-
         }
 
         private static string CallAPI(string elem, string lat, string lon)
@@ -447,6 +434,7 @@ namespace PokemonGo.RocketAPI.Window
                                 break;
                             default:
                                 return "N/A";
+                                break;
                         }
                     }
                 }
@@ -511,7 +499,6 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         c = Color.Yellow;
                     }
-
                     if (dGrid.InvokeRequired)
                     {
                         dGrid.BeginInvoke(new MethodInvoker(delegate
@@ -523,7 +510,6 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         dGrid.Rows.Insert(0, "Captured", pokemonName, pokemonCP, pokemonIV);
                     }
-
                     ColoredConsoleWrite(c, $"We caught a {pokemonName} with {pokemonCP} CP and {pokemonIV}% IV");
                     foreach (int xp in caughtPokemonResponse.Scores.Xp)
                         TotalExperience += xp;
@@ -542,7 +528,6 @@ namespace PokemonGo.RocketAPI.Window
                     {
                         dGrid.Rows.Insert(0, "Flew Away", pokemonName, pokemonCP, pokemonIV);
                     }
-
                     ColoredConsoleWrite(Color.Red, $"{pokemonName} with {pokemonCP} CP and {pokemonIV}% IV got away..");
                 }
 
@@ -598,8 +583,7 @@ namespace PokemonGo.RocketAPI.Window
             {
                 pokestopsOverlay.Markers.Clear();
                 List<PointLatLng> routePoint = new List<PointLatLng>();
-
-                /*foreach (var pokeStop in pokeStops)
+                foreach (var pokeStop in pokeStops)
                 {
                     GMarkerGoogleType type = GMarkerGoogleType.blue_small;
                     if (pokeStop.CooldownCompleteTimestampMs > DateTime.UtcNow.ToUnixTime())
@@ -614,7 +598,6 @@ namespace PokemonGo.RocketAPI.Window
 
                     routePoint.Add(pokeStopLoc);
                 }
-                */
                 pokestopsOverlay.Routes.Clear();
                 pokestopsOverlay.Routes.Add(new GMapRoute(routePoint, "Walking Path"));
 
@@ -694,8 +677,6 @@ namespace PokemonGo.RocketAPI.Window
                 client.RecycleItems(client);
                 await ExecuteFarmingPokestopsAndPokemons(client);
             }
-
-            updateUserStatusBar(client);
         }
 
         private async Task ForceUnban(Client client)
@@ -736,7 +717,7 @@ namespace PokemonGo.RocketAPI.Window
                                 }
                                 else
                                 {
-                                    ColoredConsoleWrite(Color.LightGreen, "Fuck yes, you are now unbanned! Total attempts: " + i);
+                                    ColoredConsoleWrite(Color.LightGreen, "You are now unbanned! Total attempts: " + i);
                                     done = true;
                                     break;
                                 }
@@ -1173,85 +1154,24 @@ namespace PokemonGo.RocketAPI.Window
             settingsForm.ShowDialog();
         }
 
-        private void Client_OnConsoleWrite(ConsoleColor color, string message)
-        {
-            Color c = Color.White;
-            switch (color)
-            {
-                case ConsoleColor.Green:
-                    c = Color.Green;
-                    break;
-                case ConsoleColor.DarkCyan:
-                    c = Color.DarkCyan;
-                    break;
-            }
-            ColoredConsoleWrite(c, message);
-        }
-
-        private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void statsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // todo: add player stats later
-        }
-
-        private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            var pForm = new PokeUi();
-            pForm.Show();
-        }
-
-
-        #region POKEMON LIST
-        private IEnumerable<PokemonFamily> families;
-
-
-        private Image GetPokemonImage(int pokemonId)
-        {
-            var Sprites = AppDomain.CurrentDomain.BaseDirectory + "Sprites\\";
-            string location = Sprites + pokemonId + ".png";
-            if (!Directory.Exists(Sprites))
-                Directory.CreateDirectory(Sprites);
-            if (!File.Exists(location))
-            {
-                WebClient wc = new WebClient();
-                wc.DownloadFile("http://pokeapi.co/media/sprites/pokemon/" + pokemonId + ".png", @location);
-            }
-            return Image.FromFile(location);
-        }
-
-
-        private void pokeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private static bool bot_started = false;
         private void btnStartFarming_Click(object sender, EventArgs e)
         {
             if (!bot_started)
             {
                 bot_started = true;
-
                 if (btnStartFarming.InvokeRequired)
                 {
                     btnStartFarming.BeginInvoke(new MethodInvoker(delegate
                     {
-                        btnPokemon.Enabled = true;
                         btnStartFarming.Text = "Stop Farming";
+                        btnPokemon.Enabled = false;
                     }));
                 }
                 else
                 {
-                    btnPokemon.Enabled = true;
                     btnStartFarming.Text = "Stop Farming";
+                    btnPokemon.Enabled = false;
                 }
 
                 Task.Run(() =>
@@ -1286,10 +1206,28 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private void btnadvoptions_Click(object sender, EventArgs e)
+        private void Client_OnConsoleWrite(ConsoleColor color, string message)
         {
-            SettingsForm settingsForm = new SettingsForm();
-            settingsForm.ShowDialog();
+            Color c = Color.White;
+            switch (color)
+            {
+                case ConsoleColor.Green:
+                    c = Color.Green;
+                    break;
+                case ConsoleColor.DarkCyan:
+                    c = Color.DarkCyan;
+                    break;
+            }
+            ColoredConsoleWrite(c, message);
+        }
+
+        private void showAllToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void statsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // todo: add player stats later
         }
 
         private async void btnLuckyEgg_Click(object sender, EventArgs e)
@@ -1328,31 +1266,6 @@ namespace PokemonGo.RocketAPI.Window
             }
         }
 
-        private async void btnForceUnban_Click(object sender, EventArgs e)
-        {
-            if (client != null && pokeStops != null)
-            {
-                if (ForceUnbanning)
-                {
-                    ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
-                }
-                else
-                {
-                    await ForceUnban(client);
-                }
-            }
-            else
-            {
-                ColoredConsoleWrite(Color.Red, "Please start the bot and wait for map to load before trying to force unban");
-            }
-        }
-
-        private void btnPokemon_Click(object sender, EventArgs e)
-        {
-            var pForm = new PokeUi();
-            pForm.Show();
-        }
-
         private async void btnuseincense_Click(object sender, EventArgs e)
         {
             if (client != null)
@@ -1388,6 +1301,47 @@ namespace PokemonGo.RocketAPI.Window
                 ColoredConsoleWrite(Color.Red, "Please start the bot before trying to use a Incense.");
             }
         }
+
+        private async void btnForceUnban_Click(object sender, EventArgs e)
+        {
+            if (client != null && pokeStops != null)
+            {
+                if (ForceUnbanning)
+                {
+                    ColoredConsoleWrite(Color.Red, "A force unban attempt is in action... Please wait.");
+                }
+                else
+                {
+                    await ForceUnban(client);
+                }
+            }
+            else
+            {
+                ColoredConsoleWrite(Color.Red, "Please start the bot and wait for map to load before trying to force unban");
+            }
+        }
+
+        private void showAllToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pokemonToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var pForm = new PokeUi();
+            pForm.Show();
+        }
+
+        private void btnadvoptions_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
+        }
+
+        private void btnPokemon_Click(object sender, EventArgs e)
+        {
+            var pForm = new PokeUi();
+            pForm.Show();
+        }
     }
 }
-#endregion

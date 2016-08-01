@@ -42,6 +42,7 @@ namespace PokemonGo.RocketAPI
 
         public delegate void ConsoleWriteDelegate(ConsoleColor color, string message);
         public static event ConsoleWriteDelegate OnConsoleWrite;
+
         public Client(ISettings settings)
         {
             _settings = settings;

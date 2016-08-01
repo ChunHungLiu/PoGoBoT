@@ -125,7 +125,7 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentOutOfRangeException) { Execute(); }
             catch (ArgumentNullException) { Execute(); }
             catch (NullReferenceException) { Execute(); }
-            catch (Exception) { Execute(); }
+            catch (Exception ex) { Execute(); }
         }
 
         private void EnabledButton(bool enabled)
@@ -263,7 +263,7 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentOutOfRangeException) { await evolvePokemon(pokemon); }
             catch (ArgumentNullException) { await evolvePokemon(pokemon); }
             catch (NullReferenceException) { await evolvePokemon(pokemon); }
-            catch (Exception) { await evolvePokemon(pokemon); }
+            catch (Exception ex) { await evolvePokemon(pokemon); }
         }
 
         private static async Task transferPokemon(PokemonData pokemon)
@@ -294,7 +294,7 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentOutOfRangeException) { await transferPokemon(pokemon); }
             catch (ArgumentNullException) { await transferPokemon(pokemon); }
             catch (NullReferenceException) { await transferPokemon(pokemon); }
-            catch (Exception) { await transferPokemon(pokemon); }
+            catch (Exception ex) { await transferPokemon(pokemon); }
         }
 
         private async void btnUpgrade_Click(object sender, EventArgs e)
@@ -342,7 +342,7 @@ namespace PokemonGo.RocketAPI.Window
             catch (ArgumentOutOfRangeException) { await PowerUp(pokemon); }
             catch (ArgumentNullException) { await PowerUp(pokemon); }
             catch (NullReferenceException) { await PowerUp(pokemon); }
-            catch (Exception) { await PowerUp(pokemon); }
+            catch (Exception ex) { await PowerUp(pokemon); }
         }
 
         private void dataGridView1_SortCompare(object sender, DataGridViewSortCompareEventArgs e)

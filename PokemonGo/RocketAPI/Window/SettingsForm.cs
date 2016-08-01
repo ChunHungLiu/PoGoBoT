@@ -86,6 +86,7 @@ namespace PokemonGo.RocketAPI.Window
             //Add Options
             addfarminglocations();
         }
+
         private void addfarminglocations()
         {
             comboLocations.Items.Add(new Loc() { name = "London, England", lat = 51.501663, lng = -0.14102 });
@@ -103,6 +104,7 @@ namespace PokemonGo.RocketAPI.Window
             comboLocations.Items.Add(new Loc() { name = "Tokyo, Japan", lat = 35.69051125265253, lng = 139.68954205513 });
             comboLocations.Items.Add(new Loc() { name = "Disneyland Park", lat = 33.8120962, lng = -117.9189742 });
         }
+
         private void saveBtn_Click(object sender, EventArgs e)
         {
             Settings.Instance.SetSetting(authTypeCb.Text, "AuthType");

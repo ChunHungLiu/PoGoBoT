@@ -182,7 +182,6 @@
             // 
             this.UserPasswordBox.Location = new System.Drawing.Point(82, 62);
             this.UserPasswordBox.Name = "UserPasswordBox";
-            this.UserPasswordBox.PasswordChar = '•';
             this.UserPasswordBox.Size = new System.Drawing.Size(136, 20);
             this.UserPasswordBox.TabIndex = 12;
             // 
@@ -257,7 +256,7 @@
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(0, 340);
+            this.saveBtn.Location = new System.Drawing.Point(3, 341);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(218, 95);
             this.saveBtn.TabIndex = 20;
@@ -274,7 +273,7 @@
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(6, 47);
+            this.gMapControl1.Location = new System.Drawing.Point(6, 45);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -287,7 +286,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(468, 357);
+            this.gMapControl1.Size = new System.Drawing.Size(468, 359);
             this.gMapControl1.TabIndex = 22;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
@@ -312,7 +311,7 @@
             // 
             this.FindAdressButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FindAdressButton.Location = new System.Drawing.Point(355, 19);
+            this.FindAdressButton.Location = new System.Drawing.Point(352, 19);
             this.FindAdressButton.Name = "FindAdressButton";
             this.FindAdressButton.Size = new System.Drawing.Size(119, 20);
             this.FindAdressButton.TabIndex = 25;
@@ -322,16 +321,16 @@
             // 
             // AdressBox
             // 
-            this.AdressBox.Location = new System.Drawing.Point(6, 19);
+            this.AdressBox.Location = new System.Drawing.Point(15, 19);
             this.AdressBox.Name = "AdressBox";
-            this.AdressBox.Size = new System.Drawing.Size(343, 20);
+            this.AdressBox.Size = new System.Drawing.Size(331, 20);
             this.AdressBox.TabIndex = 25;
             // 
             // trackBar
             // 
             this.trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar.BackColor = System.Drawing.SystemColors.Info;
-            this.trackBar.Location = new System.Drawing.Point(382, 49);
+            this.trackBar.Location = new System.Drawing.Point(429, 45);
             this.trackBar.Name = "trackBar";
             this.trackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBar.Size = new System.Drawing.Size(45, 104);
@@ -437,7 +436,7 @@
             this.comboLocations.Location = new System.Drawing.Point(6, 410);
             this.comboLocations.Name = "comboLocations";
             this.comboLocations.Size = new System.Drawing.Size(468, 21);
-            this.comboLocations.TabIndex = 27;
+            this.comboLocations.TabIndex = 28;
             this.comboLocations.SelectedIndexChanged += new System.EventHandler(this.comboLocations_SelectedIndexChanged);
             // 
             // SettingsForm
@@ -491,6 +490,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar trackBar;
+        private CueTextBox textBoxAddress;
         private System.Windows.Forms.TextBox TravelSpeedBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label TravelSpeedText;
