@@ -1,3 +1,9 @@
+# Niantic's latest update change how data communicate between server and the client. Currently no bots are working. Please be patient and wait for our official announcement on our discrod channel.
+
+
+
+
+
 # A Pokemon Go Bot based on FeroxRevs API
 ![Application Demo](http://i.imgur.com/sO5b4TR.png)
 
