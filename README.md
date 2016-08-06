@@ -1,3 +1,5 @@
+[!Logo](www.pogobot.xyz/c69631c952396a26930bf1ed9188b1dc9deb4308da39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709b6e30768b3f16cec99100dfc8fed4a5b.png)
+
 # Niantic's latest update change how data communicate between server and the client. Currently no bots are working. Please be patient and wait for our official announcement on our discord channel.
 
 
